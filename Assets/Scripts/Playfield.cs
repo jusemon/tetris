@@ -4,9 +4,16 @@ public class Playfield : MonoBehaviour
 {
     public static int w = 10;
 
-    public static int h = 20;
+    public static int h = 25;
 
     public static Transform[,] grid = new Transform[w, h];
+
+    public static int score = 0;
+
+    public static int level => Mathf.FloorToInt((5 + Mathf.Sqrt(Mathf.Abs(5 * (5 + 8 * score)))) / 10);
+
+    public static float dificult => 1 - (0.085f * (level - 1));
+
 
     public static Vector2 roundVec2(Vector2 v)
     {
@@ -74,6 +81,7 @@ public class Playfield : MonoBehaviour
             {
                 deleteRow(y);
                 decreaseRowsAbove(y + 1);
+                ++score;
                 --y;
             }
         }

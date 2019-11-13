@@ -97,7 +97,7 @@ public class Group : MonoBehaviour
         }
         // Fall
         else if (Input.GetKeyDown(KeyCode.DownArrow) ||
-         Time.time - lastFall >= 1)
+         Time.time - lastFall >= Playfield.dificult)
         {
             // Modify position
             transform.position += new Vector3(0, -1, 0);
@@ -115,7 +115,6 @@ public class Group : MonoBehaviour
 
                 // Clear filled horizontal lines
                 Playfield.deleteFullRows();
-
                 // Spawn next Group
                 FindObjectOfType<Spawner>().spawnNext();
 
