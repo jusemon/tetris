@@ -53,6 +53,7 @@ public class Group : MonoBehaviour
             if (Playfield.score > highscore)
             {
                 PlayerPrefs.SetInt("highscore", Playfield.score);
+                PlayerPrefs.Save();
             }
 
             Debug.Log("GAME OVER");
