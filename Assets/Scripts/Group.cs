@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Group : MonoBehaviour
 {
@@ -46,7 +47,22 @@ public class Group : MonoBehaviour
         // Default position not valid? Then it's game over
         if (!isValidGridPos())
         {
+            Playfield.gameOver = true;
+
+            var highscore = PlayerPrefs.GetInt("highscore", 0);
+            if (Playfield.score > highscore)
+            {
+                PlayerPrefs.SetInt("highscore", Playfield.score);
+            }
+
             Debug.Log("GAME OVER");
+            Dialog.MessageBox("Game Over", "Play again?", () => {
+                Debug.Log("Trying again :v");
+                Playfield.gameOver = false;
+                Playfield.score = 0;
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            });
+            //enabled = false;
             Destroy(gameObject);
         }
     }
@@ -54,6 +70,11 @@ public class Group : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Playfield.gameOver)
+        {
+            return;
+        }
+
         // Move Left
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
@@ -96,7 +117,7 @@ public class Group : MonoBehaviour
                 transform.Rotate(0, 0, 90);
         }
         // Fall
-        else if (Input.GetKeyDown(KeyCode.DownArrow) || (Input.GetKey(KeyCode.DownArrow) && Time.time - lastFall >= 0.05)  ||
+        else if (Input.GetKeyDown(KeyCode.DownArrow) || (Input.GetKey(KeyCode.DownArrow) && Time.time - lastFall >= 0.05f)  ||
          Time.time - lastFall >= Playfield.dificult)
         {
             // Modify position

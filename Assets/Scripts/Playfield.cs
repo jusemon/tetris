@@ -12,6 +12,8 @@ public class Playfield : MonoBehaviour
 
     public static int level => Mathf.FloorToInt((5 + Mathf.Sqrt(Mathf.Abs(5 * (5 + 8 * score)))) / 10);
 
+    public static bool gameOver = false;
+
     public static float dificult => 1 - (0.125f * (level - 1));
 
     public static Vector2 roundVec2(Vector2 v)
@@ -31,8 +33,11 @@ public class Playfield : MonoBehaviour
     {
         for (int x = 0; x < w; ++x)
         {
-            Destroy(grid[x, y].gameObject);
-            grid[x, y] = null;
+            if (grid[x, y] != null)
+            {
+                Destroy(grid[x, y].gameObject);
+                grid[x, y] = null;
+            }
         }
     }
 
@@ -83,6 +88,16 @@ public class Playfield : MonoBehaviour
                 ++score;
                 --y;
             }
+        }
+    }
+
+    public static void deleteAllRows()
+    {
+        for (int y = 0; y < h; ++y)
+        {
+            deleteRow(y);
+            decreaseRowsAbove(y + 1);
+            --y;
         }
     }
 
