@@ -96,7 +96,7 @@ public class Group : MonoBehaviour
                 transform.Rotate(0, 0, 90);
         }
         // Fall
-        else if (Input.GetKeyDown(KeyCode.DownArrow) ||
+        else if (Input.GetKeyDown(KeyCode.DownArrow) || (Input.GetKey(KeyCode.DownArrow) && Time.time - lastFall >= 0.05)  ||
          Time.time - lastFall >= Playfield.dificult)
         {
             // Modify position

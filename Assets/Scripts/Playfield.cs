@@ -12,7 +12,7 @@ public class Playfield : MonoBehaviour
 
     public static int level => Mathf.FloorToInt((5 + Mathf.Sqrt(Mathf.Abs(5 * (5 + 8 * score)))) / 10);
 
-    public static float dificult => 1 - (0.15f * (level - 1));
+    public static float dificult => 1 - (0.125f * (level - 1));
 
     public static Vector2 roundVec2(Vector2 v)
     {
