@@ -138,7 +138,7 @@ public class Group : MonoBehaviour
                 // Clear filled horizontal lines
                 Playfield.deleteFullRows();
                 // Spawn next Group
-                FindObjectOfType<Spawner>().spawnNext();
+                FindObjectOfType<Spawner>().SpawnNext();
 
                 // Disable script
                 enabled = false;
